@@ -278,5 +278,5 @@ async def main():
 
     await asyncio.Event().wait()
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     asyncio.run(main())
