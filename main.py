@@ -266,17 +266,12 @@ async def main():
     app = Application.builder().token(BOT_TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(CallbackQueryHandler(handle_callback, pattern="^(db:|col:|rnd:|go:|ans:|restart|report|check_join)"))
+    app.add_handler(CallbackQueryHandler(handle_callback, pattern="^(db:|col:|rnd:|go:|ans:|restart|report)"))
     app.add_handler(MessageHandler(filters.ALL, handle_report))
 
-    await app.initialize()
-    await app.start()
-    await app.updater.start_polling()
+    # Run bot until stopped
+    await app.run_polling()
 
-    # Start background alive reporter
-    asyncio.create_task(alive_reporter(app))
-
-    await asyncio.Event().wait()
 
 if __name__ == "__main__":
     asyncio.run(main())
